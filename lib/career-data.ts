@@ -158,8 +158,8 @@ export const careerData: CareerData = {
     {
       id: "hsbc-canada",
       company: "HSBC Canada",
-      title: "Lead Data Analyst, Data Governance",
-      promotionPath: "Data Quality Analyst → Lead Data Analyst",
+      title: "Lead Data Quality Analyst",
+      promotionPath: "Data Quality Analyst → Lead Data Quality Analyst",
       startDate: "2017",
       endDate: "2024",
       bullets: [
