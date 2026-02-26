@@ -3,7 +3,7 @@
 
 export const profile = {
   name: "Andre Santos",
-  initials: "AD",
+  initials: "AVS",
   title: "Data & Analytics Leader",
   subtitle:
     "Enterprise governance, marketing measurement, and analytics engineering across global banking",

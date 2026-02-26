@@ -34,18 +34,18 @@ const jetbrains = JetBrains_Mono({
 
 /* ─── Design tokens as CSS variables ─── */
 const vaultVars: Record<string, string> = {
-  "--vault-bg": "#070B14",
-  "--vault-surface": "#0E1320",
-  "--vault-border": "#1A2035",
-  "--vault-text": "#E8E4DF",
-  "--vault-text-secondary": "#8B8A88",
-  "--vault-text-muted": "#5A5957",
-  "--vault-gold": "#C8A961",
-  "--vault-gold-hover": "#D4BA7A",
-  "--vault-gold-subtle": "rgba(200, 169, 97, 0.08)",
-  "--vault-gold-glow": "rgba(200, 169, 97, 0.15)",
-  "--vault-rose": "#C97373",
-  "--vault-rose-subtle": "rgba(201, 115, 115, 0.08)",
+  "--vault-bg": "#111827",
+  "--vault-surface": "#1E293B",
+  "--vault-border": "#334155",
+  "--vault-text": "#F1F5F9",
+  "--vault-text-secondary": "#94A3B8",
+  "--vault-text-muted": "#64748B",
+  "--vault-gold": "#D4A843",
+  "--vault-gold-hover": "#E0BE6A",
+  "--vault-gold-subtle": "rgba(212, 168, 67, 0.08)",
+  "--vault-gold-glow": "rgba(212, 168, 67, 0.15)",
+  "--vault-rose": "#F87171",
+  "--vault-rose-subtle": "rgba(248, 113, 113, 0.06)",
 };
 
 /* ─── Animated gold divider ─── */
@@ -122,11 +122,11 @@ function Navbar({ onAskAI }: { onAskAI: () => void }) {
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
       style={{
         background: scrolled || mobileOpen
-          ? "rgba(7, 11, 20, 0.92)"
+          ? "rgba(17, 24, 39, 0.92)"
           : "transparent",
         backdropFilter: scrolled || mobileOpen ? "blur(16px)" : "none",
         borderBottom: scrolled || mobileOpen
-          ? "1px solid rgba(26, 32, 53, 0.6)"
+          ? "1px solid rgba(51, 65, 85, 0.6)"
           : "1px solid transparent",
       }}
     >
@@ -185,7 +185,7 @@ function Navbar({ onAskAI }: { onAskAI: () => void }) {
             onMouseEnter={(e) => {
               e.currentTarget.style.background = "var(--vault-gold-hover)";
               e.currentTarget.style.boxShadow =
-                "0 0 20px rgba(200, 169, 97, 0.3)";
+                "0 0 20px rgba(212, 168, 67, 0.3)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = "var(--vault-gold)";
@@ -236,7 +236,7 @@ function Navbar({ onAskAI }: { onAskAI: () => void }) {
       >
         <div
           className="px-6 pb-6 pt-2 flex flex-col gap-5"
-          style={{ borderTop: "1px solid rgba(26, 32, 53, 0.4)" }}
+          style={{ borderTop: "1px solid rgba(51, 65, 85, 0.4)" }}
         >
           <a
             href="#experience"
@@ -296,7 +296,7 @@ function Hero({ onAskAI }: { onAskAI: () => void }) {
           <div
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs tracking-wider mb-12"
             style={{
-              border: "1px solid rgba(200, 169, 97, 0.3)",
+              border: "1px solid rgba(212, 168, 67, 0.3)",
               color: "var(--vault-gold)",
               fontFamily: "var(--font-outfit)",
               fontWeight: 400,
@@ -305,7 +305,7 @@ function Hero({ onAskAI }: { onAskAI: () => void }) {
           >
             <span
               className="inline-block w-1.5 h-1.5 rounded-full"
-              style={{ background: "var(--vault-gold)" }}
+              style={{ background: "#22c55e" }}
             />
             {profile.statusBadge}
           </div>
@@ -366,17 +366,17 @@ function Hero({ onAskAI }: { onAskAI: () => void }) {
                 key={tag}
                 className="px-3.5 py-1.5 rounded-full text-xs tracking-wide transition-all duration-300"
                 style={{
-                  border: "1px solid rgba(200, 169, 97, 0.2)",
+                  border: "1px solid rgba(212, 168, 67, 0.2)",
                   color: "var(--vault-text-secondary)",
                   fontFamily: "var(--font-outfit)",
                   fontWeight: 400,
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(200, 169, 97, 0.5)";
+                  e.currentTarget.style.borderColor = "rgba(212, 168, 67, 0.5)";
                   e.currentTarget.style.color = "var(--vault-gold)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(200, 169, 97, 0.2)";
+                  e.currentTarget.style.borderColor = "rgba(212, 168, 67, 0.2)";
                   e.currentTarget.style.color = "var(--vault-text-secondary)";
                 }}
               >
@@ -400,7 +400,7 @@ function Hero({ onAskAI }: { onAskAI: () => void }) {
             onMouseEnter={(e) => {
               e.currentTarget.style.background = "var(--vault-gold-hover)";
               e.currentTarget.style.boxShadow =
-                "0 0 32px rgba(200, 169, 97, 0.25)";
+                "0 0 32px rgba(212, 168, 67, 0.25)";
               e.currentTarget.style.transform = "translateY(-1px)";
             }}
             onMouseLeave={(e) => {
@@ -601,7 +601,7 @@ function RoleCard({
         <div
           className="mt-6 pt-6 space-y-5"
           style={{
-            borderTop: "1px solid rgba(200, 169, 97, 0.1)",
+            borderTop: "1px solid rgba(212, 168, 67, 0.1)",
           }}
         >
           <AIContextBlock label="Situation" text={role.aiContext.situation} />
@@ -846,9 +846,9 @@ function FitResult({ text }: { text: string }) {
               ? "var(--vault-rose)"
               : "var(--vault-text-secondary)";
           const badgeBorder = isStrong
-            ? "rgba(200, 169, 97, 0.3)"
+            ? "rgba(212, 168, 67, 0.3)"
             : isWeak
-              ? "rgba(201, 115, 115, 0.3)"
+              ? "rgba(248, 113, 113, 0.3)"
               : "rgba(139, 138, 136, 0.2)";
 
           return (
@@ -1037,7 +1037,7 @@ function FitAssessment() {
                   onFocus={(e) => {
                     e.currentTarget.style.borderColor = "var(--vault-gold)";
                     e.currentTarget.style.boxShadow =
-                      "0 0 0 1px rgba(200, 169, 97, 0.2)";
+                      "0 0 0 1px rgba(212, 168, 67, 0.2)";
                   }}
                   onBlur={(e) => {
                     e.currentTarget.style.borderColor = "var(--vault-border)";
@@ -1084,7 +1084,7 @@ function FitAssessment() {
                       onMouseEnter={(e) => {
                         if (!loading) {
                           e.currentTarget.style.borderColor =
-                            "rgba(200, 169, 97, 0.4)";
+                            "rgba(212, 168, 67, 0.4)";
                           e.currentTarget.style.color = "var(--vault-gold)";
                         }
                       }}
@@ -1125,7 +1125,7 @@ function FitAssessment() {
                       e.currentTarget.style.background =
                         "var(--vault-gold-hover)";
                       e.currentTarget.style.boxShadow =
-                        "0 0 24px rgba(200, 169, 97, 0.2)";
+                        "0 0 24px rgba(212, 168, 67, 0.2)";
                     }
                   }}
                   onMouseLeave={(e) => {
@@ -1139,7 +1139,7 @@ function FitAssessment() {
                     <span
                       className="inline-block w-4 h-4 rounded-full border-2 animate-spin"
                       style={{
-                        borderColor: "rgba(7, 11, 20, 0.3)",
+                        borderColor: "rgba(17, 24, 39, 0.3)",
                         borderTopColor: "var(--vault-bg)",
                       }}
                     />
@@ -1155,7 +1155,7 @@ function FitAssessment() {
                 className="rounded-lg p-4 text-sm flex items-center justify-between"
                 style={{
                   background: "var(--vault-rose-subtle)",
-                  border: "1px solid rgba(201, 115, 115, 0.2)",
+                  border: "1px solid rgba(248, 113, 113, 0.2)",
                   color: "var(--vault-rose)",
                   fontFamily: "var(--font-outfit)",
                   fontWeight: 400,
@@ -1189,7 +1189,7 @@ function FitAssessment() {
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.borderColor =
-                      "rgba(200, 169, 97, 0.4)";
+                      "rgba(212, 168, 67, 0.4)";
                     e.currentTarget.style.color = "var(--vault-gold)";
                   }}
                   onMouseLeave={(e) => {
@@ -1318,15 +1318,15 @@ function AskAIModal({
         className="w-full sm:max-w-lg sm:rounded-xl overflow-hidden vault-modal-enter flex flex-col max-h-full sm:max-h-[85vh]"
         style={{
           background: "var(--vault-surface)",
-          border: "1px solid rgba(200, 169, 97, 0.2)",
-          boxShadow: "0 0 60px rgba(200, 169, 97, 0.06)",
+          border: "1px solid rgba(212, 168, 67, 0.2)",
+          boxShadow: "0 0 60px rgba(212, 168, 67, 0.06)",
           height: "100dvh",
         }}
       >
         {/* Header */}
         <div
           className="flex items-center justify-between px-5 sm:px-6 py-4 sm:py-5 shrink-0"
-          style={{ borderBottom: "1px solid rgba(200, 169, 97, 0.1)" }}
+          style={{ borderBottom: "1px solid rgba(212, 168, 67, 0.1)" }}
         >
           <div className="flex items-center gap-2.5">
             <span style={{ color: "var(--vault-gold)", fontSize: "0.875rem" }}>
@@ -1392,7 +1392,7 @@ function AskAIModal({
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.borderColor =
-                      "rgba(200, 169, 97, 0.4)";
+                      "rgba(212, 168, 67, 0.4)";
                     e.currentTarget.style.color = "var(--vault-text)";
                   }}
                   onMouseLeave={(e) => {
@@ -1419,11 +1419,11 @@ function AskAIModal({
                   style={{
                     background:
                       msg.role === "user"
-                        ? "rgba(200, 169, 97, 0.12)"
+                        ? "rgba(212, 168, 67, 0.12)"
                         : "var(--vault-bg)",
                     border:
                       msg.role === "user"
-                        ? "1px solid rgba(200, 169, 97, 0.2)"
+                        ? "1px solid rgba(212, 168, 67, 0.2)"
                         : "1px solid var(--vault-border)",
                     color: "var(--vault-text-secondary)",
                     fontFamily: "var(--font-outfit)",
@@ -1476,7 +1476,7 @@ function AskAIModal({
               className="rounded-lg p-3 text-sm flex items-center justify-between"
               style={{
                 background: "var(--vault-rose-subtle)",
-                border: "1px solid rgba(201, 115, 115, 0.2)",
+                border: "1px solid rgba(248, 113, 113, 0.2)",
                 color: "var(--vault-rose)",
                 fontFamily: "var(--font-outfit)",
                 fontWeight: 400,
@@ -1509,7 +1509,7 @@ function AskAIModal({
         <div
           className="px-5 sm:px-6 py-4 sm:py-5 flex gap-3 shrink-0"
           style={{
-            borderTop: "1px solid rgba(200, 169, 97, 0.1)",
+            borderTop: "1px solid rgba(212, 168, 67, 0.1)",
             paddingBottom: "max(1rem, env(safe-area-inset-bottom))",
           }}
         >
@@ -1629,18 +1629,18 @@ function FooterSection() {
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-full flex items-center justify-center text-sm transition-all duration-300"
               style={{
-                border: "1px solid rgba(200, 169, 97, 0.3)",
+                border: "1px solid rgba(212, 168, 67, 0.3)",
                 color: "var(--vault-gold)",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = "var(--vault-gold)";
                 e.currentTarget.style.background = "var(--vault-gold-subtle)";
                 e.currentTarget.style.boxShadow =
-                  "0 0 16px rgba(200, 169, 97, 0.15)";
+                  "0 0 16px rgba(212, 168, 67, 0.15)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor =
-                  "rgba(200, 169, 97, 0.3)";
+                  "rgba(212, 168, 67, 0.3)";
                 e.currentTarget.style.background = "transparent";
                 e.currentTarget.style.boxShadow = "none";
               }}
@@ -1652,18 +1652,18 @@ function FooterSection() {
               href={`mailto:${profile.links.email}`}
               className="w-10 h-10 rounded-full flex items-center justify-center text-sm transition-all duration-300"
               style={{
-                border: "1px solid rgba(200, 169, 97, 0.3)",
+                border: "1px solid rgba(212, 168, 67, 0.3)",
                 color: "var(--vault-gold)",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = "var(--vault-gold)";
                 e.currentTarget.style.background = "var(--vault-gold-subtle)";
                 e.currentTarget.style.boxShadow =
-                  "0 0 16px rgba(200, 169, 97, 0.15)";
+                  "0 0 16px rgba(212, 168, 67, 0.15)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor =
-                  "rgba(200, 169, 97, 0.3)";
+                  "rgba(212, 168, 67, 0.3)";
                 e.currentTarget.style.background = "transparent";
                 e.currentTarget.style.boxShadow = "none";
               }}
@@ -1764,8 +1764,8 @@ export default function VaultPage() {
           transition: border-color 0.4s ease, box-shadow 0.4s ease;
         }
         .vault-card:hover {
-          border-color: rgba(200, 169, 97, 0.25) !important;
-          box-shadow: 0 0 24px rgba(200, 169, 97, 0.04);
+          border-color: rgba(212, 168, 67, 0.25) !important;
+          box-shadow: 0 0 24px rgba(212, 168, 67, 0.04);
         }
 
         /* Modal entrance */
@@ -1821,7 +1821,7 @@ export default function VaultPage() {
 
         /* Selection color */
         ::selection {
-          background: rgba(200, 169, 97, 0.25);
+          background: rgba(212, 168, 67, 0.25);
           color: var(--vault-text);
         }
 
@@ -1842,7 +1842,7 @@ export default function VaultPage() {
           border-radius: 3px;
         }
         ::-webkit-scrollbar-thumb:hover {
-          background: rgba(200, 169, 97, 0.3);
+          background: rgba(212, 168, 67, 0.3);
         }
       `}</style>
 

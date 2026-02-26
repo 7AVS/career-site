@@ -1,6 +1,6 @@
 # PROJECT — AI-Powered Career Site
 
-**Status:** Phase 4 Complete — AI features live with guardrails. Next: Deploy.
+**Status:** Phase 5 Complete — Deployed to Vercel. Live at https://career-site-7avs-projects.vercel.app
 
 ---
 
@@ -52,12 +52,13 @@ Inspired by Nate B. Jones's "Marcus Chen" demo. Reference material in `design/re
 - [x] Deleted `content/` (source material, now in exploration-data.ts)
 - [x] Deleted `design/trasncript.txt` (orphaned)
 
-### Phase 5: Deploy (NEXT)
-- [ ] Push to GitHub
-- [ ] Vercel account + project setup
-- [ ] Environment variables: `OPENROUTER_API_KEY`, `NEXT_PUBLIC_SITE_URL`
-- [ ] Live URL working
+### Phase 5: Deploy (COMPLETE)
+- [x] Push to GitHub (`7AVS/career-site`, private repo)
+- [x] Vercel account + project setup (Hobby plan, auto-deploy from GitHub)
+- [x] Environment variables: `OPENROUTER_API_KEY` set in Vercel
+- [x] Live URL working: https://career-site-7avs-projects.vercel.app
 - [ ] Choose production model (free model works, paid model gives better quality)
+- [ ] Custom domain (optional — `andreavs.dev` not yet purchased)
 
 ---
 
