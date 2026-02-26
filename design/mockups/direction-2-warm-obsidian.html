@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direction 2 — Warm Obsidian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* DIRECTION 2: Warm Obsidian
+       ─────────────────────────────────────────
+       Shifts the palette from cold navy to warm charcoal/espresso.
+       Backgrounds have a brown-warm undertone. Text is cream-tinted
+       instead of blue-white. The result feels like an editorial spread —
+       a leather-bound journal rather than a sci-fi terminal.
+       Gold becomes amber-shifted, warmer.
+    */
+    --bg:             #171412;  /* warm near-black with brown undertone */
+    --surface:        #231F1B;  /* warm dark — visible, like aged paper's shadow */
+    --surface-hover:  #2C2622;
+    --border:         #3A322C;  /* warm brown border — visible but soft */
+    --border-subtle:  #2E2824;
+
+    --text:           #F0EBE3;  /* cream — warm white, very readable */
+    --text-secondary: #B0A899;  /* warm gray — readable, not cold */
+    --text-muted:     #7A7068;  /* warm muted — still visible */
+
+    --gold:           #D4A43B;  /* amber gold — warmer, richer */
+    --gold-hover:     #E2B84E;
+    --gold-subtle:    rgba(212, 164, 59, 0.07);
+    --gold-glow:      rgba(212, 164, 59, 0.18);
+
+    --rose:           #D4736C;  /* warm rose — matches the palette */
+    --rose-subtle:    rgba(212, 115, 108, 0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+
+  /* Subtle noise texture overlay for depth */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
+  }
+
+  body > * { position: relative; z-index: 1; }
+
+  /* ── Label ── */
+  .direction-label {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: var(--gold);
+    color: #171412;
+    text-align: center;
+    padding: 10px 20px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    z-index: 100;
+  }
+  .direction-label span { font-weight: 400; opacity: 0.8; }
+
+  /* ── Nav ── */
+  nav {
+    position: fixed;
+    top: 38px;
+    left: 0; right: 0;
+    z-index: 50;
+    background: rgba(23, 20, 18, 0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  nav .inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  nav .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+  nav .links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  nav .links a {
+    font-size: 14px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.3s;
+  }
+  nav .links a:hover { color: var(--text); }
+  nav .links .cta {
+    background: var(--gold);
+    color: var(--bg);
+    padding: 8px 20px;
+    border-radius: 99px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s;
+  }
+  nav .links .cta:hover {
+    background: var(--gold-hover);
+    box-shadow: 0 0 24px var(--gold-glow);
+  }
+
+  /* ── Hero ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 140px 24px 80px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border-radius: 99px;
+    border: 1px solid rgba(212, 164, 59, 0.3);
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    margin-bottom: 48px;
+  }
+  .badge .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 8px rgba(212, 164, 59, 0.4);
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(3.2rem, 8vw, 5.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+  .hero .title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+    color: var(--gold);
+    letter-spacing: 0.02em;
+    margin-bottom: 16px;
+  }
+  .hero .subtitle {
+    max-width: 520px;
+    margin: 0 auto 40px;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 56px;
+  }
+  .tags span {
+    padding: 6px 14px;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    transition: all 0.3s;
+  }
+  .tags span:hover {
+    border-color: rgba(212, 164, 59, 0.5);
+    color: var(--gold);
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 99px;
+    background: var(--gold);
+    color: var(--bg);
+    font-weight: 500;
+    font-size: 14px;
+    font-family: 'Outfit', sans-serif;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .hero-cta:hover {
+    background: var(--gold-hover);
+    box-shadow: 0 0 32px rgba(212, 164, 59, 0.3);
+    transform: translateY(-1px);
+  }
+
+  /* ── Sections ── */
+  section {
+    padding: 96px 24px;
+  }
+  section .container {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(2rem, 4vw, 2.6rem);
+    color: var(--text);
+    text-align: center;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── Gold rule ── */
+  .gold-rule {
+    width: 48px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 64px;
+  }
+
+  /* ── Experience cards ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 20px;
+    transition: border-color 0.4s, box-shadow 0.4s;
+  }
+  .card:hover {
+    border-color: rgba(212, 164, 59, 0.2);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 4px;
+  }
+  .card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 1.35rem;
+    color: var(--text);
+  }
+  .card .dates {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--gold);
+    opacity: 0.75;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .card .role-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 1.05rem;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .card ul { list-style: none; margin-bottom: 24px; }
+  .card li {
+    display: flex;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+  }
+  .card li .arrow {
+    color: var(--gold);
+    opacity: 0.6;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .card .ai-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--gold);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    transition: color 0.3s;
+  }
+  .card .ai-toggle:hover { color: var(--gold-hover); }
+
+  /* ── Skills Matrix ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .skills-col { padding: 28px 24px; }
+  .skills-col.strong { background: var(--gold-subtle); }
+  .skills-col.moderate { background: var(--surface); }
+  .skills-col.gaps { background: var(--rose-subtle); }
+  .skills-col h3 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .skills-col.strong h3 { color: var(--gold); }
+  .skills-col.moderate h3 { color: var(--text); }
+  .skills-col.gaps h3 { color: var(--rose); }
+  .skills-col li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    margin-bottom: 12px;
+    list-style: none;
+  }
+  .skills-col.strong li .marker { color: var(--gold); font-size: 12px; }
+  .skills-col.moderate li .marker { color: var(--text-muted); font-size: 12px; }
+  .skills-col.gaps li .marker { color: var(--rose); opacity: 0.7; font-size: 12px; }
+  .skills-col.strong li span:last-child { color: var(--text); }
+  .skills-col.moderate li span:last-child { color: var(--text-secondary); }
+  .skills-col.gaps li span:last-child { color: var(--text-secondary); }
+
+  /* ── Fit Assessment ── */
+  .fit-section textarea {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.7;
+    resize: none;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .fit-section textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 1px rgba(212, 164, 59, 0.15);
+  }
+  .fit-section textarea::placeholder { color: var(--text-muted); }
+  .fit-section .bio {
+    text-align: center;
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: 14px;
+    max-width: 480px;
+    margin: 0 auto 48px;
+    line-height: 1.7;
+  }
+  .demo-pills {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .demo-pills .label { font-size: 12px; color: var(--text-muted); }
+  .demo-pills button {
+    padding: 6px 14px;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-family: 'Outfit', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .demo-pills button:hover {
+    border-color: rgba(212, 164, 59, 0.4);
+    color: var(--gold);
+  }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    padding: 64px 24px;
+    border-top: 1px solid var(--border-subtle);
+  }
+  footer .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  footer .links {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 16px;
+  }
+  footer .links a {
+    color: var(--gold);
+    font-size: 13px;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  footer .links a:hover { color: var(--gold-hover); }
+
+  @media (max-width: 640px) {
+    .skills-grid { grid-template-columns: 1fr; }
+    .card { padding: 24px; }
+    .card-header { flex-direction: column; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="direction-label">
+  Direction 2 — Warm Obsidian <span>| Warm charcoal, editorial feel, leather-bound journal</span>
+</div>
+
+<nav>
+  <div class="inner">
+    <a class="logo" href="#">AD</a>
+    <div class="links">
+      <a href="#experience">Experience</a>
+      <a href="#fit">Fit Check</a>
+      <a class="cta" href="#">Ask AI</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="badge">
+    <span class="dot"></span>
+    Open to Senior Manager / Director — Analytics, Governance, or Hybrid roles
+  </div>
+  <h1>Andre Santos</h1>
+  <p class="title">Data &amp; Analytics Leader</p>
+  <p class="subtitle">Enterprise governance, marketing measurement, and analytics engineering across global banking</p>
+  <div class="tags">
+    <span>Financial Services</span>
+    <span>Data Governance</span>
+    <span>Marketing Analytics</span>
+    <span>Automation &amp; Engineering</span>
+    <span>Trilingual</span>
+  </div>
+  <button class="hero-cta">✦ Ask AI About Me</button>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <h2>Experience</h2>
+    <div class="gold-rule"></div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>RBC</h3>
+        <span class="dates">Oct 2024 – Present</span>
+      </div>
+      <p class="role-title">Marketing Analytics Manager</p>
+      <ul>
+        <li><span class="arrow">→</span><span>Designed and built an automated vintage curve measurement engine integrating RBC's 4-layer semantic framework, producing daily test/control lift calculations with confidence intervals across 6 campaign types</span></li>
+        <li><span class="arrow">→</span><span>Architected campaign measurement infrastructure with 59 documented configuration points, enabling scalable onboarding of new campaigns with clear data lineage</span></li>
+        <li><span class="arrow">→</span><span>Built a standardized success metrics library — campaign taxonomy, measurement definitions, and cataloged data assets — establishing a single source of truth</span></li>
+      </ul>
+      <button class="ai-toggle">✦ View AI Context ▾</button>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>RBC</h3>
+        <span class="dates">Apr 2024 – Oct 2024</span>
+      </div>
+      <p class="role-title">Senior Data Quality Analyst</p>
+      <ul>
+        <li><span class="arrow">→</span><span>Designed data quality frameworks across enterprise systems during the post-acquisition integration of HSBC Canada into RBC</span></li>
+        <li><span class="arrow">→</span><span>Evaluated governance tooling through proof-of-concept assessments (Informatica, Ataccama) with documented scoring criteria</span></li>
+        <li><span class="arrow">→</span><span>Built automated monitoring and executive reporting linking data quality metrics to business impact</span></li>
+      </ul>
+      <button class="ai-toggle">✦ View AI Context ▾</button>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>HSBC Canada</h3>
+        <span class="dates">Feb 2017 – Apr 2024</span>
+      </div>
+      <p class="role-title">Lead Data Analyst</p>
+      <ul>
+        <li><span class="arrow">→</span><span>Built the enterprise data governance function from scratch — frameworks, policies, standards, and monitoring controls — achieving 40% improvement in data quality scores</span></li>
+        <li><span class="arrow">→</span><span>Deployed Collibra for metadata management and implemented automated quality rules across customer, product, and transactional domains serving 200+ stakeholders</span></li>
+      </ul>
+      <button class="ai-toggle">✦ View AI Context ▾</button>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section>
+  <div class="container">
+    <h2>Skills</h2>
+    <div class="gold-rule"></div>
+    <div class="skills-grid">
+      <div class="skills-col strong">
+        <h3>Strong</h3>
+        <ul>
+          <li><span class="marker">✓</span><span>Data Governance & Frameworks</span></li>
+          <li><span class="marker">✓</span><span>SQL & Data Analysis</span></li>
+          <li><span class="marker">✓</span><span>Campaign Measurement</span></li>
+          <li><span class="marker">✓</span><span>Stakeholder Management</span></li>
+          <li><span class="marker">✓</span><span>Python / PySpark</span></li>
+          <li><span class="marker">✓</span><span>Documentation & Standards</span></li>
+        </ul>
+      </div>
+      <div class="skills-col moderate">
+        <h3>Moderate</h3>
+        <ul>
+          <li><span class="marker">○</span><span>Cloud Platforms (GCP/AWS)</span></li>
+          <li><span class="marker">○</span><span>Machine Learning Concepts</span></li>
+          <li><span class="marker">○</span><span>CI/CD & DevOps</span></li>
+          <li><span class="marker">○</span><span>Tableau / BI Tools</span></li>
+        </ul>
+      </div>
+      <div class="skills-col gaps">
+        <h3>Gaps (I'll Tell You)</h3>
+        <ul>
+          <li><span class="marker">✕</span><span>Deep ML Engineering</span></li>
+          <li><span class="marker">✕</span><span>Frontend Development</span></li>
+          <li><span class="marker">✕</span><span>Team Management (formal)</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FIT -->
+<section id="fit" class="fit-section">
+  <div class="container">
+    <h2>Honest Fit Assessment</h2>
+    <div class="gold-rule"></div>
+    <p class="bio">I've spent 14 years in global banking learning one thing: data only matters if you can trust it, and trusted data only matters if you use it.</p>
+    <textarea rows="6" placeholder="Paste a job description here..."></textarea>
+    <div class="demo-pills">
+      <span class="label">Try:</span>
+      <button>Data Governance Lead</button>
+      <button>Marketing Analytics Dir.</button>
+      <button>Analytics Engineer</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="name">Andre Santos</p>
+  <div class="links">
+    <a href="#">LinkedIn</a>
+    <a href="#">Email</a>
+  </div>
+</footer>
+
+</body>
+</html>
