@@ -35,10 +35,10 @@ export async function chatCompletion(
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
         "HTTP-Referer": process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-        "X-Title": "Andre Dantas Career Site",
+        "X-Title": "Andre Santos Career Site",
       },
       body: JSON.stringify({
-        model: options?.model || "anthropic/claude-haiku",
+        model: options?.model || "arcee-ai/trinity-large-preview:free",
         messages,
         max_tokens: options?.maxTokens || 1024,
         temperature: options?.temperature ?? 0.7,

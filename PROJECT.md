@@ -1,12 +1,12 @@
 # PROJECT — AI-Powered Career Site
 
-**Status:** Phase 1 Complete — Foundation built
+**Status:** Phase 4 Complete — AI features live with guardrails. Next: Deploy.
 
 ---
 
 ## What This Is
 
-An interactive AI-powered career site for Andre Dantas. Replaces the traditional resume with a queryable experience: hiring managers can explore Andre's background, ask AI questions, and get honest fit assessments against their job descriptions.
+An interactive AI-powered career site for Andre Santos. Replaces the traditional resume with a queryable experience: hiring managers can explore Andre's background, ask AI questions, and get honest fit assessments against their job descriptions.
 
 Inspired by Nate B. Jones's "Marcus Chen" demo. Reference material in `design/reference/` and `reference-video-transcript.md`.
 
@@ -14,48 +14,56 @@ Inspired by Nate B. Jones's "Marcus Chen" demo. Reference material in `design/re
 
 ### Phase 1: Foundation (COMPLETE)
 - [x] Next.js 16 + TypeScript + Tailwind v4 + shadcn/ui initialized
-- [x] All component files created (Navbar, Hero, Experience, SkillsMatrix, FitAssessment, AskAIModal, Footer)
-- [x] Career data types defined with placeholder content in `lib/career-data.ts`
+- [x] Career data types and content in `lib/exploration-data.ts`
 - [x] OpenRouter API client in `lib/openrouter.ts`
 - [x] System prompts for chat and fit assessment in `lib/prompts/`
 - [x] API routes: `/api/chat` and `/api/fit`
-- [x] Dark theme configured matching reference design
-- [x] Design knowledge base created in `design/`
-- [x] Build passes, all routes registered
+- [x] Dark theme configured
 
-### Phase 2: Content Collection (NEXT)
-Andre needs to fill in:
-- [ ] Each role: company, title, dates, 3 bullet points, detailed AI context story
-- [ ] Skills: review Strong / Moderate / Gaps categorization
-- [ ] Bio / headline / status badge text
-- [ ] Social links (LinkedIn, GitHub, email)
-- [ ] 4 suggested questions for AI chat
-- [ ] 2 demo job descriptions (one strong fit, one weak fit)
-- [ ] OpenRouter API key in `.env.local`
+### Phase 2: Content & Design Exploration (COMPLETE)
+- [x] Career content populated and coach-audited
+- [x] Two design directions explored (Teal vs Vault)
+- [x] **Vault (dark navy + gold) selected** as final design
 
-### Phase 3: Static Site (after content)
-- [ ] Visual polish — match reference design pixel-level
-- [ ] Responsive design testing
-- [ ] Typography refinement
-- [ ] Animation/transitions
+### Phase 3: Static Site Polish (COMPLETE)
+- [x] Mobile-responsive hamburger navbar
+- [x] Mobile-optimized Ask AI modal (full-screen, pinned input)
+- [x] Cleaned up unused fonts, variables, orphaned components
 
-### Phase 4: AI Features
-- [ ] Test OpenRouter integration end-to-end
-- [ ] Tune system prompts
-- [ ] Error handling and loading states
+### Phase 4a: AI Wiring (COMPLETE)
+- [x] Fit Assessment textarea wired to `/api/fit`
+- [x] Ask AI modal wired to `/api/chat`
+- [x] Loading states, error handling, mock responses for testing
+- [x] OpenRouter integration working with free model (`arcee-ai/trinity-large-preview:free`)
 
-### Phase 5: Deploy
+### Phase 4b: AI Guardrails & Security (COMPLETE)
+- [x] System prompts hardened with anti-injection + topic-fencing rules
+- [x] Input validation: chat 1000 chars / 20 messages, fit 5000 chars
+- [x] Role sanitization (strips injected `system` role messages)
+- [x] Sliding-window rate limiter (10 req/min/IP, in-memory)
+- [x] Origin validation (blocks direct cURL/Postman abuse)
+- [x] Client-side maxLength + character count on inputs
+- [x] Smarter mock responses with keyword matching
+
+### Phase 4c: Cleanup (COMPLETE)
+- [x] Consolidated all data into `lib/exploration-data.ts` (single source of truth)
+- [x] Deleted `lib/career-data.ts` (old Phase 1 data file)
+- [x] Deleted `app/1/` and `app/2/` (old design explorations)
+- [x] Deleted `content/` (source material, now in exploration-data.ts)
+- [x] Deleted `design/trasncript.txt` (orphaned)
+
+### Phase 5: Deploy (NEXT)
+- [ ] Push to GitHub
 - [ ] Vercel account + project setup
-- [ ] Environment variables configured
+- [ ] Environment variables: `OPENROUTER_API_KEY`, `NEXT_PUBLIC_SITE_URL`
 - [ ] Live URL working
+- [ ] Choose production model (free model works, paid model gives better quality)
 
 ---
 
-## Open Decisions
+## Design Decision
 
-1. **Font choice:** Currently using Playfair Display (serif) + Geist (sans). May want to adjust after seeing it live.
-2. **Model choice:** Default is `anthropic/claude-haiku` via OpenRouter. Cheap (~$0.001/conversation). Can upgrade if needed.
-3. **Andre's photo:** Not currently included. Could add to hero section.
+**Selected: Vault (Design 2)** — Dark navy (#070B14) background with gold (#C8A961) accents. Fonts: Cormorant Garamond (serif/display), Outfit (body), JetBrains Mono (dates/code). Minimal, editorial aesthetic.
 
 ## Tech Stack
 
@@ -65,9 +73,9 @@ Andre needs to fill in:
 | Language | TypeScript |
 | Styling | Tailwind CSS v4 |
 | Components | shadcn/ui (new-york style) |
-| AI/LLM | OpenRouter API (Claude Haiku) |
+| AI/LLM | OpenRouter API (free model for testing, configurable) |
 | Deployment | Vercel (planned) |
-| Data | Static TypeScript (`lib/career-data.ts`) |
+| Data | Static TypeScript (`lib/exploration-data.ts`) |
 
 ## How to Run
 
@@ -80,14 +88,16 @@ npm run dev
 ## File Map
 
 ```
-app/page.tsx           ← Main page, connects all components
-app/layout.tsx         ← Root layout, fonts, metadata, dark theme
-app/globals.css        ← Tailwind + shadcn theme variables
-app/api/chat/route.ts  ← AI chat endpoint
-app/api/fit/route.ts   ← Fit assessment endpoint
-components/            ← All UI components
-lib/career-data.ts     ← ALL career content (edit here)
-lib/openrouter.ts      ← OpenRouter API client
-lib/prompts/           ← System prompts for AI features
-design/                ← Design system documentation
+app/page.tsx              ← Main page (Vault design, all components inline)
+app/layout.tsx            ← Root layout, metadata, dark theme (minimal)
+app/globals.css           ← Tailwind base (no theme conflicts)
+app/api/chat/route.ts     ← AI chat endpoint (guarded)
+app/api/fit/route.ts      ← Fit assessment endpoint (guarded)
+components/ui/            ← shadcn/ui primitives
+lib/exploration-data.ts   ← ALL career content (single source of truth)
+lib/openrouter.ts         ← OpenRouter API client
+lib/api-guard.ts          ← Input validation, rate limiting, origin check
+lib/prompts/              ← System prompts for AI features
+lib/mock-responses.ts     ← Mock responses for testing without API key
+design/                   ← Design system documentation
 ```
