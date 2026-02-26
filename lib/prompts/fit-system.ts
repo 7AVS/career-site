@@ -1,7 +1,14 @@
 import { careerData } from "@/lib/career-data";
 
 export function getFitSystemPrompt(): string {
-  const { profile, roles, skills } = careerData;
+  const { profile, education, roles, skills } = careerData;
+
+  const educationContext = education
+    .map(
+      (e) =>
+        `${e.institution} — ${e.degree} in ${e.field} (${e.startYear}–${e.endYear}, ${e.status})${e.note ? `. ${e.note}` : ""}`
+    )
+    .join("\n");
 
   const rolesContext = roles
     .map(
@@ -29,6 +36,9 @@ export function getFitSystemPrompt(): string {
 
 **Title:** ${profile.title}
 **Focus:** ${profile.subtitle}
+
+### Education
+${educationContext}
 
 ### Experience
 ${rolesContext}
