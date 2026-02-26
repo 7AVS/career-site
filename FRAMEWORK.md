@@ -203,7 +203,40 @@ System prompts include explicit rules:
 
 Don't guess at your design. Use a structured process to explore options and pick the best one.
 
-### Step 1: Create Mockup HTML Files
+### Step 1: Design with Intent (The Frontend Design Prompt)
+
+Before writing any code, commit to a **bold aesthetic direction**. This project was built using the [`frontend-design` skill](https://github.com/anthropics/claude-code/tree/main/plugins/frontend-design) from Claude Code's official plugin library. The skill injects a detailed prompt that prevents generic "AI slop" and forces intentional design decisions.
+
+The key principles from that prompt — use these whether or not you use the plugin:
+
+**Design thinking before code:**
+- **Purpose**: What problem does this interface solve? Who uses it?
+- **Tone**: Pick a direction and commit to it — brutally minimal, luxury/refined, editorial/magazine, retro-futuristic, organic/natural, etc. The key is intentionality, not intensity.
+- **Differentiation**: What's the one thing someone will remember about this site?
+
+**Typography:**
+- Choose fonts that are distinctive and characterful — avoid generic defaults (Inter, Roboto, Arial, system fonts)
+- Pair a distinctive display font with a refined body font
+- Add a mono font for dates/technical elements if it fits the aesthetic
+
+**Color & Theme:**
+- Commit to a cohesive palette with CSS variables for consistency
+- Dominant colors with sharp accents outperform timid, evenly-distributed palettes
+- Avoid cliched color schemes (particularly purple gradients on white backgrounds)
+
+**Spatial Composition:**
+- Unexpected layouts, asymmetry, generous negative space OR controlled density
+- Grid-breaking elements where appropriate
+
+**Motion & Atmosphere:**
+- Focus on high-impact moments: one well-orchestrated page load with staggered reveals creates more delight than scattered micro-interactions
+- Create depth with gradient meshes, noise textures, layered transparencies, dramatic shadows
+
+**The anti-pattern to avoid:** Cookie-cutter design that looks like every other AI-generated site. Every design should feel genuinely crafted for its specific context.
+
+If you're using Claude Code, install the plugin and invoke `/frontend-design` with your requirements. If not, use these principles as your design brief.
+
+### Step 2: Create Mockup HTML Files
 
 Build 2-3 self-contained HTML mockups — complete pages with inline styles, no build step required. Each should:
 - Show all key sections (hero, experience, skills, AI features)
@@ -218,7 +251,7 @@ design/mockups/direction-2-warm-obsidian.html
 design/mockups/direction-3-midnight-sapphire.html
 ```
 
-### Step 2: Compare and Choose
+### Step 3: Compare and Choose
 
 Open all mockups side-by-side. Evaluate:
 - Readability (can you scan the page quickly?)
@@ -228,7 +261,7 @@ Open all mockups side-by-side. Evaluate:
 
 Pick one. Don't blend — commit to a direction.
 
-### Step 3: Token-Based Design System
+### Step 4: Token-Based Design System
 
 Implement your chosen design as CSS variables (design tokens), not hardcoded colors scattered through components. All visual theming flows from a single token object:
 
@@ -250,7 +283,7 @@ Apply tokens as inline CSS variables on the root element. Components reference `
 
 **Watch for hardcoded rgba() values.** Transparency variants (navbar backgrounds, subtle tints, glows) often use `rgba()` with hardcoded color channels. When changing your palette, search for all `rgba()` values and update them to match your new tokens.
 
-### Step 4: Fonts
+### Step 5: Fonts
 
 Choose 2-3 fonts with distinct roles:
 - **Display**: Headlines, your name. Something with personality.
