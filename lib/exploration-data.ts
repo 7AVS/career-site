@@ -14,7 +14,8 @@ export const profile = {
     "Data Governance",
     "Marketing Analytics",
     "Automation & Engineering",
-    "Trilingual",
+    "Trilingual (EN/PT/ES)",
+    "Canadian Citizen",
   ],
   bio: "I've spent 14 years in global banking learning one thing: data only matters if you can trust it, and trusted data only matters if you use it.",
   links: {
@@ -48,6 +49,7 @@ export const roles: Role[] = [
       "Designed and built an automated vintage curve measurement engine integrating RBC's 4-layer semantic framework (SuperFact), producing daily test/control lift calculations with confidence intervals across 6 campaign types serving 5M+ clients",
       "Architected campaign measurement infrastructure with 59 documented configuration points, enabling scalable onboarding of new campaigns with clear data lineage from experiment setup through client outcome",
       "Built a standardized success metrics library — campaign taxonomy, measurement definitions, and cataloged data assets — establishing a single source of truth for payment products analytics",
+      "Reduced campaign measurement cycle from weeks to hours through Python automation, enabling data-driven campaign optimization at pace",
     ],
     aiContext: {
       situation:
@@ -57,7 +59,7 @@ export const roles: Role[] = [
       keyDecision:
         "I chose to build the measurement engine as a self-sufficient system with dual delivery tracks: one feeding into the official Tableau/reporting channel, and one producing standalone HTML/Plotly outputs. This meant the work could demonstrate value immediately without waiting for infrastructure approvals, while still being designed for eventual integration into the enterprise reporting stack.",
       outcome:
-        "The vintage automation engine is now the team's core measurement asset, covering six Visa payment campaign types. It produces daily vintage curves, lift calculations, and confidence intervals that feed directly into quarterly executive presentations. The 59-point configuration documentation I created became the foundation for the team's technical onboarding, enabling new members to contribute within their first week.",
+        "The vintage automation engine is now the team's core measurement asset, covering six Visa payment campaign types. It produces daily vintage curves, lift calculations, and confidence intervals that feed directly into quarterly executive presentations. The 59-point configuration documentation I created became the foundation for the team's technical onboarding, enabling new members to contribute within their first week. This was Senior Manager-level scope and impact delivered from a Manager title.",
       lesson:
         'Building something tangible changes conversations. When I had documentation and working code to show, the discussion shifted from "what should we do?" to "how do we scale this?" — letting the work speak made it easier to earn trust and influence direction without needing to claim authority.',
     },
@@ -90,6 +92,7 @@ export const roles: Role[] = [
       "Built HSBC Canada's enterprise data governance function from inception — frameworks, policies, standards, and monitoring controls aligned with global HSBC requirements, achieving 40% improvement in data quality scores",
       "Designed the operating model defining data ownership, stewardship, and accountability across Technology, Compliance, Risk, and Business — then secured executive buy-in for multi-million dollar transformation initiatives through C-level presentations",
       "Deployed Collibra for metadata management (catalog, glossary, lineage) serving 200+ stakeholders and implemented Informatica-based automated quality rules across customer, product, and transactional domains",
+      "Established data stewardship networks, data quality councils, and governance working groups spanning retail banking, commercial banking, wealth management, and operations",
     ],
     aiContext: {
       situation:
@@ -99,7 +102,7 @@ export const roles: Role[] = [
       keyDecision:
         "Early on, I had to decide whether to pursue a top-down approach (get executive mandate first, then implement) or a bottom-up approach (demonstrate value in one domain, then expand). I chose bottom-up — proving the impact of governance through measurable quality improvements in targeted data domains before asking for broader organizational commitment.",
       outcome:
-        "Over seven years, the function I built became a core part of how HSBC Canada managed its data. Quality scores improved by 40%. The Collibra platform served over 200 stakeholders. The governance council became an established cross-functional forum.",
+        "Over seven years, the function I built became a core part of how HSBC Canada managed its data. Quality scores improved by 40%. The Collibra platform served over 200 stakeholders. The governance council became an established cross-functional forum. When RBC acquired HSBC Canada, my governance framework was the reference point for integration decisions.",
       lesson:
         "Building something from nothing teaches you that the technical work is maybe 30% of the challenge. The other 70% is organizational — getting people to care, aligning incentives, earning trust from teams that didn't ask for governance and aren't sure they want it.",
     },
@@ -147,28 +150,31 @@ export const roles: Role[] = [
 
 export const skills = {
   strong: [
-    "Data Governance & Quality Frameworks",
-    "SQL & Data Engineering (PySpark, Spark, Teradata)",
-    "Marketing Analytics & Campaign Measurement",
+    "Data Governance & Quality Frameworks (built from scratch at HSBC Canada)",
+    "SQL & Data Engineering (PySpark, Spark, Teradata, Snowflake)",
+    "Marketing Analytics & Campaign Measurement (vintage curves, lift, confidence intervals)",
     "Python Automation & Pipeline Development",
     "Executive Communication & C-Level Presentations",
     "Cross-functional Leadership & Stakeholder Alignment",
-    "Framework & Operating Model Design",
-    "Metadata Management (Collibra, Informatica)",
-    "Financial Services Domain (14 years)",
+    "Operating Model & Framework Design",
+    "Metadata Management (Collibra catalog/glossary + Informatica quality/metadata)",
+    "Regulatory Compliance in Financial Services (PIPEDA, OSFI, FINTRAC)",
+    "Financial Services Domain (14 years across HSBC + RBC)",
   ],
   moderate: [
-    "Machine Learning / AI (Vector Institute bootcamp)",
-    "Cloud Platforms (Snowflake, GCP)",
-    "Experiment Design & Statistical Testing",
-    "Financial Services Compliance (FINTRAC, PIPEDA)",
-    "Visualization (Tableau, Plotly, Qlik)",
+    "Machine Learning & AI Applications (Vector Institute bootcamp, FGV MBA starting 2026)",
+    "Cloud Platforms (Snowflake, GCP, Hive)",
+    "Experiment Design & Statistical Testing (A/B testing, test/control methodology)",
+    "Visualization & Dashboarding (Tableau, Plotly, Qlik)",
+    "Change Management & Organizational Governance Adoption",
+    "SAS Programming",
   ],
   gaps: [
-    "Advanced Statistical Methods (Bayesian, causal inference)",
+    "Advanced Statistical Methods (Bayesian inference, deep causal modeling)",
     "Product Management",
-    "Frontend Development",
+    "Frontend / Full-Stack Development",
     "People Management at Scale (10+ direct reports)",
+    "Non-Banking Industry Experience",
   ],
 };
 
@@ -179,30 +185,203 @@ export const education = [
     field: "AI & Analytics Applied to Business",
     startYear: "2026",
     endYear: "2027",
-    status: "in-progress" as const,
-    note: "Brazil's #1 ranked business school. Live program combining AI/ML methods with business strategy and analytics leadership.",
+    status: "upcoming" as const,
+    note: "Brazil's #1 ranked business school. 18-month live program covering AI/ML, NLP, MLOps, marketing analytics, and analytics leadership.",
+  },
+  {
+    institution: "ESIC Business & Marketing School",
+    degree: "BBA",
+    field: "Marketing",
+    startYear: "2010",
+    endYear: "2012",
+    status: "completed" as const,
+    note: "International business school based in Spain. Marketing strategy, consumer behavior, and business administration.",
+  },
+  {
+    institution: "UTP — Universidade Tuiuti do Paraná",
+    degree: "BA",
+    field: "International Relations",
+    startYear: "2004",
+    endYear: "2008",
+    status: "completed" as const,
+    note: "Geopolitics, international economics, and cross-cultural communication. Foundation for a trilingual global career.",
   },
 ];
+
+// --- Certifications ---
+
+export interface Certification {
+  name: string;
+  institution: string;
+  status: "complete" | "in-progress";
+  year?: string;
+  note?: string;
+}
+
+export const certifications: Certification[] = [
+  {
+    name: "Agentic AI Bootcamp",
+    institution: "Vector Institute",
+    status: "complete",
+    year: "2025",
+    note: "Intensive program on building AI agent systems, prompt engineering, and LLM application development.",
+  },
+  {
+    name: "CDMP (Certified Data Management Professional)",
+    institution: "DAMA International",
+    status: "in-progress",
+    note: "Industry-standard certification covering data governance, data quality, metadata management, and master data management.",
+  },
+  {
+    name: "Data Science Specialization",
+    institution: "Johns Hopkins University (Coursera)",
+    status: "complete",
+    note: "R programming, statistical inference, regression models, machine learning, and reproducible research.",
+  },
+  {
+    name: "Python for Data Science",
+    institution: "BrainStation",
+    status: "complete",
+    note: "Python, pandas, scikit-learn, data wrangling, and visualization for data science workflows.",
+  },
+  {
+    name: "Big Data Technologies",
+    institution: "Professional Development",
+    status: "complete",
+    note: "Hadoop ecosystem, Spark, Hive, and distributed computing architectures.",
+  },
+];
+
+// --- Languages ---
+
+export interface Language {
+  language: string;
+  proficiency: string;
+  context: string;
+}
+
+export const languages: Language[] = [
+  {
+    language: "Portuguese",
+    proficiency: "Native",
+    context:
+      "Born and raised in Brazil. 5 years professional experience at HSBC Brazil. FGV MBA (starting 2026) conducted in Portuguese.",
+  },
+  {
+    language: "English",
+    proficiency: "Full professional",
+    context:
+      "10+ years working in English-language environments at HSBC Canada and RBC. All technical documentation, executive presentations, and stakeholder communication in English.",
+  },
+  {
+    language: "Spanish",
+    proficiency: "Working",
+    context:
+      "BBA completed at ESIC Business & Marketing School in Spain. Reading and conversational fluency for business contexts.",
+  },
+];
+
+// --- Career Positioning ---
+// Context for AI prompts to give richer, more accurate career assessments.
+
+export const positioning = {
+  uniqueValue:
+    "One of very few professionals who combine enterprise governance build-from-scratch experience (7 years at HSBC) with hands-on marketing analytics and statistical measurement (RBC vintage engine) — plus trilingual capability and 14 years of banking domain depth. Most governance leaders lack analytics skills; most analytics leaders lack governance architecture experience. Andre has both at enterprise scale.",
+  rareCombination:
+    "Collibra + Informatica dual expertise is uncommon — most professionals specialize in one platform. Combined with Python/PySpark analytics, C-level presentation skills, and regulatory compliance knowledge (PIPEDA, OSFI), this creates a profile that bridges technical implementation and strategic leadership.",
+  careerNarrative:
+    "The thread across Andre's career is building foundational systems that organizations rely on. At HSBC Brazil: automated reporting and segmentation. At HSBC Canada: the entire governance function from zero. At RBC: the campaign measurement engine from scratch. The pattern is not maintaining existing infrastructure — it's creating the infrastructure that didn't exist.",
+  canadaContext:
+    "Strong profile for governance-analytics hybrid roles in Vancouver and Toronto. The Collibra + Informatica dual expertise is rare in the Canadian market. Competitive for Senior Manager and Director-level positions at banks, consulting firms (Big 4), and enterprise companies with mature data functions.",
+  brazilContext:
+    "Exceptionally differentiated in São Paulo. 14-year HSBC/RBC pedigree, Collibra expertise, and native English fluency command significant salary premiums in the Brazilian market. The FGV MBA adds local institutional prestige. Banks, fintechs, and multinationals with LatAm operations are ideal targets.",
+  industryTransfer:
+    "While Andre's 14 years are in banking, the core competencies — governance framework design, analytics engineering, stakeholder management, regulatory compliance — transfer directly to any regulated or data-intensive industry: insurance, healthcare, retail, telecom, or technology companies building enterprise data functions.",
+};
+
+// --- Suggested Questions ---
 
 export const suggestedQuestions = [
   "What's the thread connecting Andre's career — governance to analytics?",
   "Tell me about building HSBC Canada's governance function from scratch.",
   "What did Andre actually build at RBC? Walk me through the vintage engine.",
   "Where are Andre's honest gaps, and what's he doing about them?",
+  "How would Andre's profile translate outside financial services?",
+  "What makes the governance + analytics combination rare in the market?",
 ];
+
+// --- Demo Job Descriptions for Fit Assessment ---
 
 export const demoJobDescriptions = [
   {
-    label: "Strong Fit Example",
+    label: "Strong Fit — Governance & Analytics Hybrid",
     title: "Senior Manager, Data Governance & Analytics — Major Canadian Bank",
-    description:
-      "We are looking for a Senior Manager to lead our Data Governance & Analytics function within the enterprise data office. This role combines strategic governance oversight with hands-on analytics capability.\n\nKey responsibilities:\n- Design and maintain enterprise data governance frameworks, policies, and standards\n- Lead data quality improvement initiatives across customer, product, and transactional data domains\n- Build and manage automated data quality monitoring and reporting\n- Partner with Marketing, Risk, and Technology to translate data governance into analytics-ready assets\n- Manage metadata platforms (Collibra or equivalent) including data catalog, business glossary, and lineage\n- Present governance and analytics outcomes to VP and C-level stakeholders quarterly\n- Define critical data elements and ownership models across business units\n\nRequirements:\n- 8+ years in data governance, data quality, or analytics in financial services\n- Experience building or significantly expanding a governance function\n- Hands-on SQL, Python, and familiarity with governance platforms (Collibra, Informatica, Ataccama)\n- Strong executive communication skills\n- Experience with marketing analytics or campaign measurement is a strong asset\n- Bachelor's degree required; Master's or MBA preferred\n- CDMP or equivalent certification preferred",
+    description: `We are looking for a Senior Manager to lead our Data Governance & Analytics function within the enterprise data office. This role combines strategic governance oversight with hands-on analytics capability.
+
+Key responsibilities:
+- Design and maintain enterprise data governance frameworks, policies, and standards
+- Lead data quality improvement initiatives across customer, product, and transactional data domains
+- Build and manage automated data quality monitoring and reporting
+- Partner with Marketing, Risk, and Technology to translate data governance into analytics-ready assets
+- Manage metadata platforms (Collibra or equivalent) including data catalog, business glossary, and lineage
+- Present governance and analytics outcomes to VP and C-level stakeholders quarterly
+- Define critical data elements and ownership models across business units
+
+Requirements:
+- 8+ years in data governance, data quality, or analytics in financial services
+- Experience building or significantly expanding a governance function
+- Hands-on SQL, Python, and familiarity with governance platforms (Collibra, Informatica, Ataccama)
+- Strong executive communication skills
+- Experience with marketing analytics or campaign measurement is a strong asset
+- Bachelor's degree required; Master's or MBA preferred
+- CDMP or equivalent certification preferred`,
   },
   {
-    label: "Weak Fit Example",
+    label: "Moderate Fit — Marketing Analytics (Non-Banking)",
+    title: "Senior Manager, Marketing Data & Analytics — SaaS Company",
+    description: `We're looking for a Senior Manager to lead our Marketing Data & Analytics team. You'll own the measurement strategy across all marketing channels, build the data infrastructure, and partner with marketing leadership to drive data-informed decisions.
+
+Key responsibilities:
+- Own marketing measurement strategy including attribution modeling, incrementality testing, and marketing mix modeling
+- Build and manage the marketing data stack (data warehouse, ETL pipelines, BI tools)
+- Design and execute A/B tests and experiments across marketing channels
+- Develop dashboards and self-serve analytics tools for marketing stakeholders
+- Lead a team of 3-5 analysts and data engineers
+- Partner with Product, Engineering, and Finance on cross-functional analytics initiatives
+- Present insights and recommendations to VP Marketing and executive team
+
+Requirements:
+- 7+ years in marketing analytics, data science, or a related analytical role
+- 3+ years managing analytics teams
+- Expert SQL and proficiency in Python or R
+- Experience with marketing attribution, incrementality testing, and experiment design
+- Familiarity with marketing platforms (Google Analytics, Segment, Amplitude, or similar)
+- Experience with cloud data warehouses (Snowflake, BigQuery, or Redshift)
+- SaaS or technology industry experience strongly preferred
+- Bachelor's degree in a quantitative field; Master's preferred`,
+  },
+  {
+    label: "Weak Fit — Product Management",
     title: "Director of Product, Consumer Fintech",
-    description:
-      "We're hiring a Director of Product to lead our consumer-facing financial wellness app. You'll own the product roadmap, drive user growth, and ship features that help millions of users manage their finances.\n\nKey responsibilities:\n- Define and own the product vision, strategy, and 18-month roadmap\n- Lead a team of 12+ product managers, designers, and researchers\n- Drive user acquisition and retention metrics (DAU, activation, NPS)\n- Ship consumer features using agile methodology with 2-week sprint cycles\n- Partner with engineering on mobile (iOS/Android) and web platform development\n- Conduct user research, A/B testing at scale (100K+ users), and data-driven prioritization\n- Report to the CPO and present to the board quarterly\n\nRequirements:\n- 10+ years in product management, with 5+ in consumer fintech or financial wellness\n- Track record of shipping consumer mobile products at scale (1M+ users)\n- Experience managing product teams of 10+\n- Deep understanding of consumer behavior, growth loops, and retention mechanics\n- Technical fluency with mobile development, API architecture, and data infrastructure\n- MBA from a top-20 program strongly preferred\n- Experience with regulatory compliance in consumer financial products",
+    description: `We're hiring a Director of Product to lead our consumer-facing financial wellness app. You'll own the product roadmap, drive user growth, and ship features that help millions of users manage their finances.
+
+Key responsibilities:
+- Define and own the product vision, strategy, and 18-month roadmap
+- Lead a team of 12+ product managers, designers, and researchers
+- Drive user acquisition and retention metrics (DAU, activation, NPS)
+- Ship consumer features using agile methodology with 2-week sprint cycles
+- Partner with engineering on mobile (iOS/Android) and web platform development
+- Conduct user research, A/B testing at scale (100K+ users), and data-driven prioritization
+- Report to the CPO and present to the board quarterly
+
+Requirements:
+- 10+ years in product management, with 5+ in consumer fintech or financial wellness
+- Track record of shipping consumer mobile products at scale (1M+ users)
+- Experience managing product teams of 10+
+- Deep understanding of consumer behavior, growth loops, and retention mechanics
+- Technical fluency with mobile development, API architecture, and data infrastructure
+- MBA from a top-20 program strongly preferred
+- Experience with regulatory compliance in consumer financial products`,
   },
 ];
 

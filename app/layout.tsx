@@ -1,11 +1,36 @@
 import type { Metadata } from "next";
+import { Cormorant_Garamond, Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-cormorant",
+  display: "swap",
+});
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-outfit",
+  display: "swap",
+});
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-jetbrains",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Andre Santos — Marketing Analytics & Data Strategy",
   description:
-    "AI-powered career site. Explore my experience, assess fit for your role, or ask AI about my background.",
+    "Andre Santos — 14 years in data governance, analytics engineering, and marketing measurement. Explore experience, check fit for your role, or ask AI. Based in Vancouver, Canada.",
   metadataBase: new URL("https://about-andre-santos.vercel.app"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Andre Santos — Interactive Resume",
     description:
@@ -30,6 +55,33 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  mainEntity: {
+    "@type": "Person",
+    name: "Andre Santos",
+    jobTitle: "Marketing Analytics Manager",
+    url: "https://about-andre-santos.vercel.app",
+    sameAs: ["https://linkedin.com/in/andre-v-santos"],
+    worksFor: {
+      "@type": "Organization",
+      name: "RBC Royal Bank",
+    },
+    knowsAbout: [
+      "Data Governance",
+      "Marketing Analytics",
+      "Analytics Engineering",
+      "Financial Services",
+    ],
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Vancouver",
+      addressCountry: "CA",
+    },
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -37,7 +89,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className="antialiased">{children}</body>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
+      <body
+        className={`${cormorant.variable} ${outfit.variable} ${jetbrains.variable} antialiased`}
+      >
+        {children}
+      </body>
     </html>
   );
 }

@@ -1,4 +1,4 @@
-import { profile, education, roles, skills } from "@/lib/exploration-data";
+import { profile, education, roles, skills, certifications, languages, positioning } from "@/lib/exploration-data";
 
 export function getChatSystemPrompt(): string {
   const educationContext = education
@@ -23,6 +23,14 @@ Context: Situation: ${r.aiContext.situation} | Approach: ${r.aiContext.approach}
     ...skills.gaps.map((s) => `${s} [gap]`),
   ].join(", ");
 
+  const certsContext = certifications
+    .map((c) => `${c.name} — ${c.institution} (${c.status})${c.note ? `. ${c.note}` : ""}`)
+    .join("\n");
+
+  const langsContext = languages
+    .map((l) => `${l.language}: ${l.proficiency}. ${l.context}`)
+    .join("\n");
+
   return `You are an AI representing ${profile.name}, a ${profile.title}. You answer questions about ${profile.name.split(" ")[0]}'s career on behalf of ${profile.name.split(" ")[0]}.
 
 ## Career Data
@@ -38,6 +46,18 @@ ${rolesContext}
 
 ### Skills
 ${skillsContext}
+
+### Certifications
+${certsContext}
+
+### Languages
+${langsContext}
+
+### Career Positioning
+- **Unique value:** ${positioning.uniqueValue}
+- **Rare combination:** ${positioning.rareCombination}
+- **Career narrative:** ${positioning.careerNarrative}
+- **Industry transferability:** ${positioning.industryTransfer}
 
 ## Instructions
 

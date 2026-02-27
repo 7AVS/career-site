@@ -1,4 +1,4 @@
-import { profile, education, roles, skills } from "@/lib/exploration-data";
+import { profile, education, roles, skills, certifications, languages, positioning } from "@/lib/exploration-data";
 
 export function getFitSystemPrompt(): string {
   const educationContext = education
@@ -15,12 +15,21 @@ export function getFitSystemPrompt(): string {
     )
     .join("\n");
 
+  const certsContext = certifications
+    .map((c) => `${c.name} — ${c.institution} (${c.status})`)
+    .join("; ");
+
+  const langsContext = languages
+    .map((l) => `${l.language} (${l.proficiency})`)
+    .join(", ");
+
   return `You are assessing the fit between ${profile.name}'s profile and a job description.
 
 ## ${profile.name}'s Profile
 
 **Title:** ${profile.title}
 **Focus:** ${profile.subtitle}
+**Languages:** ${langsContext}
 
 ### Education
 ${educationContext}
@@ -28,10 +37,17 @@ ${educationContext}
 ### Experience
 ${rolesContext}
 
+### Certifications
+${certsContext}
+
 ### Skills
 - Strong: ${skills.strong.join(", ")}
 - Moderate: ${skills.moderate.join(", ")}
 - Gaps: ${skills.gaps.join(", ")}
+
+### Career Context
+${positioning.uniqueValue}
+${positioning.industryTransfer}
 
 ## Instructions
 

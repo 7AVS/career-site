@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Cormorant_Garamond, Outfit, JetBrains_Mono } from "next/font/google";
 import {
   profile,
   roles,
@@ -10,28 +9,6 @@ import {
   demoJobDescriptions,
 } from "@/lib/exploration-data";
 
-/* ─── Fonts ─── */
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-cormorant",
-  display: "swap",
-});
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-outfit",
-  display: "swap",
-});
-
-const jetbrains = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-jetbrains",
-  display: "swap",
-});
-
 /* ─── Design tokens as CSS variables ─── */
 const vaultVars: Record<string, string> = {
   "--vault-bg": "#111827",
@@ -39,7 +16,7 @@ const vaultVars: Record<string, string> = {
   "--vault-border": "#334155",
   "--vault-text": "#F1F5F9",
   "--vault-text-secondary": "#94A3B8",
-  "--vault-text-muted": "#64748B",
+  "--vault-text-muted": "#7A8BA0",
   "--vault-gold": "#D4A843",
   "--vault-gold-hover": "#E0BE6A",
   "--vault-gold-subtle": "rgba(212, 168, 67, 0.08)",
@@ -69,8 +46,15 @@ function Reveal({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mq.matches) {
+      setReducedMotion(true);
+      setVisible(true);
+      return;
+    }
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
@@ -90,11 +74,15 @@ function Reveal({
     <div
       ref={ref}
       className={className}
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(24px)",
-        transition: `opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms`,
-      }}
+      style={
+        reducedMotion
+          ? undefined
+          : {
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateY(0)" : "translateY(24px)",
+              transition: `opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms`,
+            }
+      }
     >
       {children}
     </div>
@@ -144,53 +132,19 @@ function Navbar({ onAskAI }: { onAskAI: () => void }) {
         <div className="hidden sm:flex items-center gap-8">
           <a
             href="#experience"
-            className="text-sm tracking-wide transition-colors duration-300 hover:opacity-100"
-            style={{
-              color: "var(--vault-text-secondary)",
-              fontFamily: "var(--font-outfit)",
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.color = "var(--vault-text)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.color = "var(--vault-text-secondary)")
-            }
+            className="vault-nav-link text-sm tracking-wide transition-colors duration-300"
           >
             Experience
           </a>
           <a
             href="#fit"
-            className="text-sm tracking-wide transition-colors duration-300"
-            style={{
-              color: "var(--vault-text-secondary)",
-              fontFamily: "var(--font-outfit)",
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.color = "var(--vault-text)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.color = "var(--vault-text-secondary)")
-            }
+            className="vault-nav-link text-sm tracking-wide transition-colors duration-300"
           >
             Fit Check
           </a>
           <button
             onClick={onAskAI}
-            className="text-sm font-medium px-5 py-2 rounded-full transition-all duration-300"
-            style={{
-              background: "var(--vault-gold)",
-              color: "var(--vault-bg)",
-              fontFamily: "var(--font-outfit)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "var(--vault-gold-hover)";
-              e.currentTarget.style.boxShadow =
-                "0 0 20px rgba(212, 168, 67, 0.3)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "var(--vault-gold)";
-              e.currentTarget.style.boxShadow = "none";
-            }}
+            className="vault-btn-gold text-sm font-medium px-5 py-2 rounded-full transition-all duration-300"
           >
             Ask AI
           </button>
@@ -306,6 +260,7 @@ function Hero({ onAskAI }: { onAskAI: () => void }) {
             <span
               className="inline-block w-1.5 h-1.5 rounded-full"
               style={{ background: "#22c55e" }}
+              aria-hidden="true"
             />
             {profile.statusBadge}
           </div>
@@ -364,21 +319,7 @@ function Hero({ onAskAI }: { onAskAI: () => void }) {
             {profile.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-3.5 py-1.5 rounded-full text-xs tracking-wide transition-all duration-300"
-                style={{
-                  border: "1px solid rgba(212, 168, 67, 0.2)",
-                  color: "var(--vault-text-secondary)",
-                  fontFamily: "var(--font-outfit)",
-                  fontWeight: 400,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(212, 168, 67, 0.5)";
-                  e.currentTarget.style.color = "var(--vault-gold)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(212, 168, 67, 0.2)";
-                  e.currentTarget.style.color = "var(--vault-text-secondary)";
-                }}
+                className="vault-tag px-3.5 py-1.5 rounded-full text-xs tracking-wide transition-all duration-300"
               >
                 {tag}
               </span>
@@ -390,24 +331,8 @@ function Hero({ onAskAI }: { onAskAI: () => void }) {
         <Reveal delay={600}>
           <button
             onClick={onAskAI}
-            className="inline-flex items-center gap-2.5 px-7 py-3 rounded-full text-sm font-medium transition-all duration-300"
-            style={{
-              background: "var(--vault-gold)",
-              color: "var(--vault-bg)",
-              fontFamily: "var(--font-outfit)",
-              fontWeight: 500,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "var(--vault-gold-hover)";
-              e.currentTarget.style.boxShadow =
-                "0 0 32px rgba(212, 168, 67, 0.25)";
-              e.currentTarget.style.transform = "translateY(-1px)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "var(--vault-gold)";
-              e.currentTarget.style.boxShadow = "none";
-              e.currentTarget.style.transform = "translateY(0)";
-            }}
+            className="vault-btn-gold inline-flex items-center gap-2.5 px-7 py-3 rounded-full text-sm font-medium transition-all duration-300"
+            style={{ fontWeight: 500 }}
           >
             <span>✦</span>
             Ask AI About Me
@@ -472,6 +397,7 @@ function Experience({
             <Reveal key={index} delay={index * 80}>
               <RoleCard
                 role={role}
+                index={index}
                 expanded={expandedRoles.has(index)}
                 onToggle={() => toggleRole(index)}
               />
@@ -485,10 +411,12 @@ function Experience({
 
 function RoleCard({
   role,
+  index,
   expanded,
   onToggle,
 }: {
   role: (typeof roles)[0];
+  index: number;
   expanded: boolean;
   onToggle: () => void;
 }) {
@@ -564,18 +492,14 @@ function RoleCard({
       {/* AI Context toggle */}
       <button
         onClick={onToggle}
-        className="inline-flex items-center gap-2 text-sm transition-all duration-300 group"
+        aria-expanded={expanded}
+        aria-controls={`ai-context-${index}`}
+        className="inline-flex items-center gap-2 text-sm transition-all duration-300 group vault-link"
         style={{
           color: "var(--vault-gold)",
           fontFamily: "var(--font-outfit)",
           fontWeight: 400,
         }}
-        onMouseEnter={(e) =>
-          (e.currentTarget.style.color = "var(--vault-gold-hover)")
-        }
-        onMouseLeave={(e) =>
-          (e.currentTarget.style.color = "var(--vault-gold)")
-        }
       >
         <span className="text-xs">✦</span>
         <span>View AI Context</span>
@@ -592,6 +516,9 @@ function RoleCard({
 
       {/* Expandable AI Context */}
       <div
+        id={`ai-context-${index}`}
+        role="region"
+        aria-label={`AI context for ${role.company}`}
         className="overflow-hidden transition-all duration-500"
         style={{
           maxHeight: expanded ? "800px" : "0",
@@ -1248,11 +1175,13 @@ function AskAIModal({
   const [error, setError] = useState<string | null>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const messagesRef = useRef(messages);
+  messagesRef.current = messages;
 
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
-      // Focus input when modal opens
       setTimeout(() => inputRef.current?.focus(), 100);
     } else {
       document.body.style.overflow = "";
@@ -1260,6 +1189,40 @@ function AskAIModal({
     return () => {
       document.body.style.overflow = "";
     };
+  }, [open]);
+
+  // Escape key closes modal
+  useEffect(() => {
+    if (!open) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open, onClose]);
+
+  // Focus trap
+  useEffect(() => {
+    if (!open || !modalRef.current) return;
+    const modal = modalRef.current;
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const focusable = modal.querySelectorAll<HTMLElement>(
+        'button, [href], input, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", handleTab);
+    return () => document.removeEventListener("keydown", handleTab);
   }, [open]);
 
   // Scroll to bottom when messages change
@@ -1273,7 +1236,8 @@ function AskAIModal({
     async (text: string) => {
       if (!text.trim() || loading) return;
       const userMsg = { role: "user" as const, content: text.trim() };
-      const newMessages = [...messages, userMsg];
+      const currentMessages = messagesRef.current;
+      const newMessages = [...currentMessages, userMsg];
       setMessages(newMessages);
       setInput("");
       setLoading(true);
@@ -1299,7 +1263,7 @@ function AskAIModal({
         setLoading(false);
       }
     },
-    [messages, loading]
+    [loading]
   );
 
   if (!open) return null;
@@ -1315,6 +1279,10 @@ function AskAIModal({
       }}
     >
       <div
+        ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="ask-ai-title"
         className="w-full sm:max-w-lg sm:rounded-xl overflow-hidden vault-modal-enter flex flex-col max-h-full sm:max-h-[85vh]"
         style={{
           background: "var(--vault-surface)",
@@ -1333,6 +1301,7 @@ function AskAIModal({
               ✦
             </span>
             <h3
+              id="ask-ai-title"
               className="text-base"
               style={{
                 fontFamily: "var(--font-cormorant)",
@@ -1346,14 +1315,9 @@ function AskAIModal({
           </div>
           <button
             onClick={onClose}
-            className="text-lg leading-none p-1 transition-colors duration-200"
+            aria-label="Close dialog"
+            className="vault-close-btn text-lg leading-none p-1 transition-colors duration-200"
             style={{ color: "var(--vault-text-muted)" }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.color = "var(--vault-text)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.color = "var(--vault-text-muted)")
-            }
           >
             ✕
           </button>
@@ -1486,14 +1450,13 @@ function AskAIModal({
               <button
                 onClick={() => {
                   setError(null);
-                  // Retry last message if available
-                  const lastUser = [...messages]
+                  const currentMsgs = messagesRef.current;
+                  const lastUser = [...currentMsgs]
                     .reverse()
                     .find((m) => m.role === "user");
                   if (lastUser) {
-                    // Remove the failed user message and resend
                     setMessages((prev) => prev.slice(0, -1));
-                    sendMessage(lastUser.content);
+                    setTimeout(() => sendMessage(lastUser.content), 0);
                   }
                 }}
                 className="text-xs underline underline-offset-2 ml-3 shrink-0"
@@ -1627,46 +1590,14 @@ function FooterSection() {
               href={profile.links.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full flex items-center justify-center text-sm transition-all duration-300"
-              style={{
-                border: "1px solid rgba(212, 168, 67, 0.3)",
-                color: "var(--vault-gold)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "var(--vault-gold)";
-                e.currentTarget.style.background = "var(--vault-gold-subtle)";
-                e.currentTarget.style.boxShadow =
-                  "0 0 16px rgba(212, 168, 67, 0.15)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor =
-                  "rgba(212, 168, 67, 0.3)";
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.boxShadow = "none";
-              }}
+              className="vault-social-link w-10 h-10 rounded-full flex items-center justify-center text-sm transition-all duration-300"
               aria-label="LinkedIn"
             >
               ↗
             </a>
             <a
               href={`mailto:${profile.links.email}`}
-              className="w-10 h-10 rounded-full flex items-center justify-center text-sm transition-all duration-300"
-              style={{
-                border: "1px solid rgba(212, 168, 67, 0.3)",
-                color: "var(--vault-gold)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "var(--vault-gold)";
-                e.currentTarget.style.background = "var(--vault-gold-subtle)";
-                e.currentTarget.style.boxShadow =
-                  "0 0 16px rgba(212, 168, 67, 0.15)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor =
-                  "rgba(212, 168, 67, 0.3)";
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.boxShadow = "none";
-              }}
+              className="vault-social-link w-10 h-10 rounded-full flex items-center justify-center text-sm transition-all duration-300"
               aria-label="Email"
             >
               ✉
@@ -1710,7 +1641,7 @@ export default function VaultPage() {
 
   return (
     <div
-      className={`${cormorant.variable} ${outfit.variable} ${jetbrains.variable} min-h-screen`}
+      className="min-h-screen"
       style={{
         ...vaultVars,
         background: "var(--vault-bg)",
@@ -1718,6 +1649,14 @@ export default function VaultPage() {
         fontFamily: "var(--font-outfit)",
       }}
     >
+      {/* Skip to main content */}
+      <a
+        href="#main"
+        className="vault-skip-nav"
+      >
+        Skip to main content
+      </a>
+
       {/* Inline keyframe styles */}
       <style>{`
         /* Gold rule animation */
@@ -1844,11 +1783,122 @@ export default function VaultPage() {
         ::-webkit-scrollbar-thumb:hover {
           background: rgba(212, 168, 67, 0.3);
         }
+
+        /* ─── Skip navigation ─── */
+        .vault-skip-nav {
+          position: absolute;
+          top: -100%;
+          left: 16px;
+          z-index: 200;
+          padding: 8px 16px;
+          border-radius: 0 0 8px 8px;
+          background: var(--vault-gold);
+          color: var(--vault-bg);
+          font-family: var(--font-outfit);
+          font-size: 0.875rem;
+          font-weight: 500;
+          text-decoration: none;
+          transition: top 0.2s ease;
+        }
+        .vault-skip-nav:focus {
+          top: 0;
+        }
+
+        /* ─── Nav links (CSS hover replaces JS handlers) ─── */
+        .vault-nav-link {
+          color: var(--vault-text-secondary);
+          font-family: var(--font-outfit);
+        }
+        .vault-nav-link:hover {
+          color: var(--vault-text);
+        }
+        .vault-nav-link:active {
+          opacity: 0.7;
+        }
+
+        /* ─── Gold button (CSS hover replaces JS handlers) ─── */
+        .vault-btn-gold {
+          background: var(--vault-gold);
+          color: var(--vault-bg);
+          font-family: var(--font-outfit);
+        }
+        .vault-btn-gold:hover {
+          background: var(--vault-gold-hover);
+          box-shadow: 0 0 24px rgba(212, 168, 67, 0.25);
+          transform: translateY(-1px);
+        }
+        .vault-btn-gold:active {
+          background: var(--vault-gold);
+          box-shadow: none;
+          transform: translateY(0) scale(0.98);
+        }
+
+        /* ─── Gold link (AI Context toggle, etc.) ─── */
+        .vault-link:hover {
+          color: var(--vault-gold-hover) !important;
+        }
+        .vault-link:active {
+          opacity: 0.7;
+        }
+
+        /* ─── Hero tags ─── */
+        .vault-tag {
+          border: 1px solid rgba(212, 168, 67, 0.2);
+          color: var(--vault-text-secondary);
+          font-family: var(--font-outfit);
+          font-weight: 400;
+        }
+        .vault-tag:hover {
+          border-color: rgba(212, 168, 67, 0.5);
+          color: var(--vault-gold);
+        }
+
+        /* ─── Footer social links ─── */
+        .vault-social-link {
+          border: 1px solid rgba(212, 168, 67, 0.3);
+          color: var(--vault-gold);
+          background: transparent;
+        }
+        .vault-social-link:hover {
+          border-color: var(--vault-gold);
+          background: var(--vault-gold-subtle);
+          box-shadow: 0 0 16px rgba(212, 168, 67, 0.15);
+        }
+        .vault-social-link:active {
+          opacity: 0.7;
+          box-shadow: none;
+        }
+
+        /* ─── Modal close button ─── */
+        .vault-close-btn:hover {
+          color: var(--vault-text) !important;
+        }
+
+        /* ─── Focus visible styles ─── */
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible {
+          outline: 2px solid var(--vault-gold);
+          outline-offset: 2px;
+        }
+
+        /* ─── Prefers reduced motion ─── */
+        @media (prefers-reduced-motion: reduce) {
+          *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
+          html {
+            scroll-behavior: auto;
+          }
+        }
       `}</style>
 
       <Navbar onAskAI={() => setChatOpen(true)} />
 
-      <main>
+      <main id="main">
         <Hero onAskAI={() => setChatOpen(true)} />
         <Experience expandedRoles={expandedRoles} toggleRole={toggleRole} />
         <SkillsMatrix />
