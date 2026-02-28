@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { LinkedinIcon, MailIcon } from "lucide-react";
 import {
   profile,
   roles,
@@ -1593,14 +1594,14 @@ function FooterSection() {
               className="vault-social-link w-10 h-10 rounded-full flex items-center justify-center text-sm transition-all duration-300"
               aria-label="LinkedIn"
             >
-              ↗
+              <LinkedinIcon size={16} />
             </a>
             <a
               href={`mailto:${profile.links.email}`}
               className="vault-social-link w-10 h-10 rounded-full flex items-center justify-center text-sm transition-all duration-300"
               aria-label="Email"
             >
-              ✉
+              <MailIcon size={16} />
             </a>
           </div>
 
