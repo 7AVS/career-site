@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/next';
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
@@ -99,6 +100,7 @@ export default function RootLayout({
         className={`${cormorant.variable} ${outfit.variable} ${jetbrains.variable} antialiased`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
